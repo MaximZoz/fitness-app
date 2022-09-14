@@ -1,23 +1,25 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { RegisterModule } from './register/register.module';
+import { LoginModule } from './login/login.module';
 
 export const ROUTES: Routes = [
   {
-    path: "auth",
+    path: 'auth',
     children: [
       {
-        path: "",
-        pathMatch: "full",
-        redirectTo: "login",
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'login',
       },
       {
-        path: "login",
-        // loadChildren: "./login/login.module#LoginModule",
+        path: 'login',
+        loadChildren: () => LoginModule,
       },
       {
-        path: "register",
-        // loadChildren: "./register/register.module#RegisterModule",
+        path: 'register',
+        loadChildren: () => RegisterModule,
       },
     ],
   },

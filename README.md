@@ -1,3 +1,3 @@
-# 94. Reactive Store and AngularFire Observables
+# 95. Stateless components and logout functionality
 
-- добавил Store чтобы легче было работать с реактивностью
+- добавил logout header и navbar

@@ -1,5 +1,7 @@
 <div>
-  Hello, world!!!
+  <h1>
+    {{ user$ | async | json }}
+  </h1>
   <a routerLink="/auth/register"> No registered? </a>
   <div class="wrapper">
     <router-outlet></router-outlet>

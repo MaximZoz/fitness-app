@@ -1,3 +1,3 @@
-# 93. AuthService and AngularFire integration
+# 94. Reactive Store and AngularFire Observables
 
-- добавил createUser и registerUser через firebase
+- добавил Store чтобы легче было работать с реактивностью

@@ -6,7 +6,7 @@ import { LoginModule } from './login/login.module';
 import { SharedModule } from './shared/shared.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { firebaseConfig } from 'src/environments/environment';
+import { firebaseConfig } from 'src/environments/firebaseConfig';
 
 export const ROUTES: Routes = [
   {

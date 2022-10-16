@@ -17,9 +17,10 @@
     },
     {
       "name": "ng deploy",
-      "type": "node",
+      "type": "chrome",
       "request": "launch",
       "preLaunchTask": "npm: deploy",
+      "url": "https://fitness-app-17e6f.web.app"
     },
   ]
 }

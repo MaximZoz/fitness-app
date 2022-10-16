@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
+import { SharedModule } from './shared/shared.module';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { firebaseConfig } from 'src/environments/environment';
 
 export const ROUTES: Routes = [
   {
@@ -26,6 +30,12 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(ROUTES)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ROUTES),
+    SharedModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+  ],
 })
 export class AuthModule {}

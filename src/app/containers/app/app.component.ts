@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit, OnDestroy {
   user$: Observable<User> | undefined;
   subscription$: Subscription | undefined;
+  isAuthenticated = false;
   constructor(
     private store: Store,
     private authService: AuthService,
@@ -22,9 +23,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription$?.unsubscribe();
   }
   ngOnInit(): void {
-    this.subscription$ = this.authService.auth$.subscribe();
+    this.subscription$ = this.authService.auth$.subscribe((el) => {
+      this.isAuthenticated = !!el;
+      if (!this.isAuthenticated) {
+        this.router.navigate(['/auth/login']);
+      }
+    });
+
     this.user$ = this.store.select<User>('user');
   }
+
   onLogout() {
     this.authService.logoutUser();
     this.router.navigate(['/auth/login']);

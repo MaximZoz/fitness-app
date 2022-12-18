@@ -1,3 +1,11 @@
-.leaflet-container {
-  overflow: hidden !important;
+.gkz-viewport {
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  flex-grow: inherit;
+
+  .cdk-virtual-scroll-content-wrapper {
+    transform: translateY(0) !important;
+    contain: layout;
+  }
 }

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { News } from './hello.component.component';
+import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertComponent } from '../alert/alert.component';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -9,22 +13,57 @@ export class PostsService {
   noteUpdate: string;
   valueNoteLS = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public snackBar: MatSnackBar) {}
 
-  getAll(): Observable<any> {
-    const headers = {
-      Accept: 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'X-Requested-With': 'XMLHttpRequest',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-      'Access-Control-Allow-Headers':
-        'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
-    };
-    return this.http.get(
-      `https://ivanborisof.pythonanywhere.com/api/v1.0/events/`,
-      { headers }
+  async getAll(): Promise<any> {
+    const resp = await fetch(
+      'https://ivanborisof.pythonanywhere.com/api/v1.0/events/'
     );
+    const data = await resp.json();
+    return data.response as News[];
   }
 
-  update() {}
+  async update(news: any) {
+    const updateMethod = {
+      method: 'PATCH',
+      body: JSON.stringify({
+        news,
+      }),
+    };
+    try {
+      const resp = await fetch(
+        'https://ivanborisof.pythonanywhere.com/api/v1.0/events/' + news.id,
+        updateMethod
+      );
+      const data = await resp.json();
+      return data.response;
+    } catch (e) {
+      this.openSnackBarWarningUpdate();
+    }
+  }
+  async create() {}
+  async delete(id: string) {
+    const deleteMethod = {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+    try {
+      const resp = await fetch(
+        'https://ivanborisof.pythonanywhere.com/api/v1.0/events/' + id,
+        deleteMethod
+      );
+      const data = await resp.json();
+      return data.response;
+    } catch (error) {
+      this.openSnackBarWarning();
+    }
+  }
+  openSnackBarWarning() {
+    this.snackBar.open('не удалено', 'ошибка сервера');
+  }
+  openSnackBarWarningUpdate() {
+    this.snackBar.open('не удалось изменить новость', 'ошибка сервера');
+  }
 }

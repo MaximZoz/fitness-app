@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       .loginUser(email, password)
       .then((user) => {
         console.log('user: ', user);
-        this.router.navigate(['/']);
+        this.router.navigate(['/coordinates']);
         // User created now create the database user
       })
       .then((success) => {
